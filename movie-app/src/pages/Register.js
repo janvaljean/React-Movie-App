@@ -1,7 +1,20 @@
 import React from "react";
 import GoogleIcon from "../assets/icons/GoogleIcon";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerFirstName, setRegisterFirstName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
+
+  const register = async () => {
+    await createUserWithEmailAndPassword()
+  }
+  
+
+
   return (
     <div className="overflow-hidden flex-1 h-screen justify-center items-center bg-[#23242a]">
       <div
@@ -13,21 +26,23 @@ const Register = () => {
           </h2>
           <div class="relative z-0 w-full mb-6 group">
             <input
-              class="peer"
+              class="peer dark:text-white"
               name="floating_text"
               type="text"
               required
               placeholder=" "
+              onChange={(e) => setRegisterFirstName(e.target.value)}
             />
             <label htmlFor="floating_text">First Name</label>
           </div>
           <div class="relative z-0 w-full mb-6 group">
             <input
-              class="peer"
+              class="peer dark: text-white"
               name="floating_text"
               type="text"
               required
               placeholder=" "
+              onChange={(e) => setRegisterLastName(e.target.value)}
             />
             <label htmlFor="floating_text">Last Name</label>
           </div>
@@ -35,18 +50,21 @@ const Register = () => {
             <input
               type="email"
               name="floating_email"
-              class="peer"
+              class="peer dark: text-white"
               placeholder=" "
               required
+              onChange={(e) => setRegisterEmail(e.target.value)}
             />
             <label for="floating_email">Email address</label>
           </div>
           <div class="relative z-0 w-full mb-6 group">
             <input
-              class="peer"
+              class="peer dark: text-white"
               name="floating_password"
               type="password"
               placeholder=" "
+              onChange={(e) => setRegisterPassword(e.target.value)}
+              
             />
             <label htmlFor="floating_password">Password</label>
           </div>
