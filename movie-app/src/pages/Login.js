@@ -11,6 +11,7 @@ const Login = () => {
   
   return (
     <div>
+    
     <div className="overflow-hidden flex-1 h-screen justify-center items-center bg-[#23242a]">
       <div
         className={`mt-[3vh] mx-auto overflow-hidden relative w-[380px] h-[620px] rounded-[8px] bg-[#1c1c1c] before:content-[""] before:absolute before:w-[380px] before:h-[420px] before:top-[-50%] before:left-[-50%] after:content-[""] after:absolute after:w-[380px] after:h-[420px] after:top-[-50%] after:left-[-50%] custom-linear-gradient`}>
@@ -23,17 +24,17 @@ const Login = () => {
             <input
               type="email"
               name="floating_email"
-              class="peer dark: text-white"
+              className="peer dark: text-white"
               placeholder=" "
               required
               onChange={(e) => setLoginEmail(e.target.value)}
               
             />
-            <label for="floating_email">Email address</label>
+            <label htmlFor="floating_email">Email address</label>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-6 group">
             <input
-              class="peer dark: text-white"
+              className="peer dark: text-white"
               name="floating_password"
               type="password"
               placeholder=" "

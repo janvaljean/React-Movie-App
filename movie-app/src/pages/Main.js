@@ -6,7 +6,7 @@ const Main = () => {
       <input type="text" />
       <button>Search</button>
       <div>
-        cards
+        
       </div>
     </div>
   )
