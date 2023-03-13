@@ -3,7 +3,11 @@ import React from 'react'
 const Main = () => {
   return (
     <div>
-      main
+      <input type="text" />
+      <button>Search</button>
+      <div>
+        cards
+      </div>
     </div>
   )
 }
