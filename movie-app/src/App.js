@@ -1,14 +1,15 @@
+import React from "react";
+import AuthContextProvider from "./context/AuthContext";
+import AppRouter from "./router/AppRouter";
 
-import './App.css';
-import AppRouter from './router/AppRouter';
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      
-      <AppRouter/>
+    <div>
+      <AuthContextProvider>
+        <AppRouter />
+      </AuthContextProvider>
     </div>
   );
-}
+};
 
 export default App;
