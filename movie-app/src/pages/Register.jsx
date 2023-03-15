@@ -9,10 +9,24 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const { createUser } = useContext(AuthContext);
 
+  //* birleştirilmiş state
+  // const [info, setInfo] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   password: "",
+  // });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser(email, password);
+    const displayName = `${firstName} ${lastName}`;
+    createUser(email, password, displayName);
   };
+
+  // const { email, password, firstName, lastName } = info;
+  // const hadleChange = (e) =>
+  // setInfo({ ...info, [e.target.id]: e.target.value });
+
   return (
     <div className="overflow-hidden flex-1 h-screen justify-center items-center bg-[#23242a]">
       <div className={`form-container mt-[5vh] w-[380px] h-[580px]`}>
@@ -24,6 +38,7 @@ const Register = () => {
             <input
               className="peer"
               name="floating_text"
+              id="firstName"
               type="text"
               required
               placeholder=" "
@@ -35,6 +50,7 @@ const Register = () => {
             <input
               className="peer"
               name="floating_text"
+              id="lastName"
               type="text"
               required
               placeholder=" "
@@ -46,6 +62,7 @@ const Register = () => {
             <input
               type="email"
               name="floating_email"
+              id="email"
               className="peer"
               placeholder=" "
               required
@@ -57,6 +74,7 @@ const Register = () => {
             <input
               className="peer"
               name="floating_password"
+              id="password"
               type="password"
               placeholder=" "
               required
