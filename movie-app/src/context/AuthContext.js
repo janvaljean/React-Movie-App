@@ -2,6 +2,8 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -10,7 +12,7 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
-import { toastErrorNotify, toastInfoNotify, toastSuccessNotify } from "../helpers/ToastNotify";
+import { toastErrorNotify, toastInfoNotify, toastSuccessNotify, toastWarningNotify } from "../helpers/ToastNotify";
 
 export const AuthContext = createContext();
 
@@ -55,6 +57,7 @@ const AuthContextProvider = ({ children }) => {
   const signIn = async (email, password) => {
     try {
       //? mevcut kullanıcının giriş yapması için kullanılan firebase metodu
+
       await signInWithEmailAndPassword(
         auth,
         email,
@@ -100,11 +103,38 @@ const AuthContextProvider = ({ children }) => {
   });
   }
 
+  const passwordResetProviderGoogle = (email) =>{
+    sendPasswordResetEmail(auth, email)
+  .then(() => {
+    toastWarningNotify("Please check your email")
+    // Password reset email sent!
+    // ..
+  })
+  .catch((error) => {
+    toastErrorNotify(error.message)
+    // ..
+  });
+  }
+  const varificationProvider = (email) =>{
+    
+      sendEmailVerification(auth.currentUser)
+  .then(() => {
+    // Email verification sent!
+    // ...
+  });
+  }
+
+  
+    
+  
+
   const values = {
     createUser,
     signIn,
     logOut,
     signUpProviderGoogle,
+    passwordResetProviderGoogle,
+    varificationProvider,
     currentUser,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -7,7 +7,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { createUser, signUpProviderGoogle } = useContext(AuthContext);
+  const { createUser, signUpProviderGoogle, varificationProvider } = useContext(AuthContext);
 
   //* birleştirilmiş state
   // const [info, setInfo] = useState({
@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const displayName = `${firstName} ${lastName}`;
-    
+    varificationProvider(email)
     createUser(email, password, displayName);
   };
 
