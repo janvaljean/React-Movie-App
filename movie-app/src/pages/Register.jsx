@@ -7,7 +7,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { createUser } = useContext(AuthContext);
+  const { createUser, signUpProviderGoogle } = useContext(AuthContext);
 
   //* birleştirilmiş state
   // const [info, setInfo] = useState({
@@ -89,6 +89,7 @@ const Register = () => {
           <button
             className="btn-danger flex justify-between items-center"
             type="button"
+            onClick={()=> signUpProviderGoogle()}
           >
             Continue with Google
             <GoogleIcon color="currentColor" />
