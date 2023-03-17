@@ -5,7 +5,7 @@ import AppRouter from "./router/AppRouter";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-gray-dark-main">
       <AuthContextProvider>
         <AppRouter />
          <ToastContainer/>

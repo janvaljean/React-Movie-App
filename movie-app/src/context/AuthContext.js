@@ -32,6 +32,7 @@ const AuthContextProvider = ({ children }) => {
   const createUser = async (email, password, displayName) => {
     try {
       //? yeni bir kullanıcı oluşturmak için kullanılan firebase metodu
+   
       await createUserWithEmailAndPassword(
         auth,
         email,
@@ -43,6 +44,8 @@ const AuthContextProvider = ({ children }) => {
         
         
       });
+
+  
       navigate("/");
       toastSuccessNotify("Successfully registered")
       //   console.log(userCredential);
