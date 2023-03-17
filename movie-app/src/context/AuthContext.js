@@ -8,6 +8,7 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
+import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 
 export const AuthContext = createContext();
 
@@ -39,9 +40,10 @@ const AuthContextProvider = ({ children }) => {
         
       });
       navigate("/");
+      toastSuccessNotify("Successfully registered")
       //   console.log(userCredential);
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
   };
 
@@ -57,9 +59,10 @@ const AuthContextProvider = ({ children }) => {
         password
       );
       navigate("/");
+      toastSuccessNotify("Successfully Logged in")
        //   console.log(userCredential);
     } catch (error) {
-      console.log(error);
+      toastErrorNotify(error.message);
     }
   };
 
