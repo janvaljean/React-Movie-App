@@ -1,7 +1,9 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -84,10 +86,24 @@ const AuthContextProvider = ({ children }) => {
     });
   };
 
+  const signUpProviderGoogle = () =>{
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+  .then((result) => {
+    navigate("/")
+    toastSuccessNotify("Successfully signed")
+   
+  }).catch((error) => {
+    toastErrorNotify(error.message)
+    
+  });
+  }
+
   const values = {
     createUser,
     signIn,
     logOut,
+    signUpProviderGoogle,
     currentUser,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
