@@ -10,7 +10,7 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
-import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
+import { toastErrorNotify, toastInfoNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 
 export const AuthContext = createContext();
 
@@ -70,6 +70,7 @@ const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
     signOut(auth);
+    toastInfoNotify("Successfully logged out")
   };
 
   const userObserver = () => {

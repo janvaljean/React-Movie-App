@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signUpProviderGoogle } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +58,7 @@ const Login = () => {
           <button
             className="btn-danger flex justify-between items-center"
             type="button"
+            onClick={() => signUpProviderGoogle()}
           >
             Continue with Google
             <GoogleIcon color="currentColor" />
