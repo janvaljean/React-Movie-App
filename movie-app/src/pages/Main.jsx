@@ -2,9 +2,19 @@ import React, { useContext } from "react";
 import { MovieContext } from "../context/MovieContext";
 
 const Main = () => {
-  const {movies} = useContext(MovieContext)
+  const {movies,loading} = useContext(MovieContext)
   console.log(movies)
-  return <div>Main</div>;
+  return (
+     <div>
+    {loading&&<div>Loading</div>}
+    <div className="flex justify-center flex-wrap">
+      {movies.map(movie => console.log(movie))}
+
+    </div>
+  
+  </div>
+  )
+ 
 };
 
 export default Main;
