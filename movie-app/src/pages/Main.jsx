@@ -1,17 +1,29 @@
 import React, { useContext, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
+import { AuthContext } from "../context/AuthContext";
 import { MovieContext } from "../context/MovieContext";
+import { toastWarningNotify } from "../helpers/ToastNotify";
 
 const API_KEY = process.env.REACT_APP_TMDB_KEY;
 const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 
 const Main = () => {
   const {movies,loading,getMovies} = useContext(MovieContext)
+  const {currentUser} = useContext(AuthContext)
+  const navigate = useNavigate()
   console.log(movies)
   const [searchTerm ,setSearchTerm] = useState("")
   function handleSubmit (e){
     e.preventDefault();
-    getMovies(SEARCH_API+searchTerm)
+    if(currentUser && searchTerm){
+      getMovies(SEARCH_API+searchTerm)
+    }else if(!currentUser){
+      toastWarningNotify("please first login")
+      navigate("/login")
+    }else{
+      toastWarningNotify("please enter a text")
+    }
   }
   return (
      <>
