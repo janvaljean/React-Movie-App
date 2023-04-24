@@ -12,7 +12,12 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
-import { toastErrorNotify, toastInfoNotify, toastSuccessNotify, toastWarningNotify } from "../helpers/ToastNotify";
+import {
+  toastErrorNotify,
+  toastInfoNotify,
+  toastSuccessNotify,
+  toastWarningNotify,
+} from "../helpers/ToastNotify";
 
 export const AuthContext = createContext();
 
@@ -22,7 +27,9 @@ export const AuthContext = createContext();
 //   };
 
 const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("user")) || ""
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,22 +39,15 @@ const AuthContextProvider = ({ children }) => {
   const createUser = async (email, password, displayName) => {
     try {
       //? yeni bir kullanıcı oluşturmak için kullanılan firebase metodu
-   
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+
+      await createUserWithEmailAndPassword(auth, email, password);
       //? kullanıcı profilini güncellemek için kullanılan firebase metodu
       await updateProfile(auth.currentUser, {
         displayName: displayName,
-        
-        
       });
 
-  
       navigate("/");
-      toastSuccessNotify("Successfully registered")
+      toastSuccessNotify("Successfully registered");
       //   console.log(userCredential);
     } catch (error) {
       toastErrorNotify(error.message);
@@ -61,14 +61,10 @@ const AuthContextProvider = ({ children }) => {
     try {
       //? mevcut kullanıcının giriş yapması için kullanılan firebase metodu
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toastSuccessNotify("Successfully Logged in")
-       //   console.log(userCredential);
+      toastSuccessNotify("Successfully Logged in");
+      //   console.log(userCredential);
     } catch (error) {
       toastErrorNotify(error.message);
     }
@@ -76,7 +72,7 @@ const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
     signOut(auth);
-    toastInfoNotify("Successfully logged out")
+    toastInfoNotify("Successfully logged out");
   };
 
   const userObserver = () => {
@@ -86,50 +82,48 @@ const AuthContextProvider = ({ children }) => {
         console.log(user);
         const { email, displayName, photoURL } = user;
         setCurrentUser({ email, displayName, photoURL });
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({ email, displayName, photoURL })
+        );
       } else {
         setCurrentUser(false);
         console.log("user logged out");
+        sessionStorage.removeItem("user");
       }
     });
   };
 
-  const signUpProviderGoogle = () =>{
+  const signUpProviderGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-  .then((result) => {
-    navigate("/")
-    toastSuccessNotify("Successfully signed")
-   
-  }).catch((error) => {
-    toastErrorNotify(error.message)
-    
-  });
-  }
+      .then((result) => {
+        navigate("/");
+        toastSuccessNotify("Successfully signed");
+      })
+      .catch((error) => {
+        toastErrorNotify(error.message);
+      });
+  };
 
-  const passwordResetProviderGoogle = (email) =>{
+  const passwordResetProviderGoogle = (email) => {
     sendPasswordResetEmail(auth, email)
-  .then(() => {
-    toastWarningNotify("Please check your email")
-    // Password reset email sent!
-    // ..
-  })
-  .catch((error) => {
-    toastErrorNotify(error.message)
-    // ..
-  });
-  }
-  const varificationProvider = (email) =>{
-    
-      sendEmailVerification(auth.currentUser)
-  .then(() => {
-    // Email verification sent!
-    // ...
-  });
-  }
-
-  
-    
-  
+      .then(() => {
+        toastWarningNotify("Please check your email");
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        toastErrorNotify(error.message);
+        // ..
+      });
+  };
+  const varificationProvider = (email) => {
+    sendEmailVerification(auth.currentUser).then(() => {
+      // Email verification sent!
+      // ...
+    });
+  };
 
   const values = {
     createUser,

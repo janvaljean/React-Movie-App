@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const VideoSection = ({videoKey}) => {
+const Video = ({ videoKey }) => {
   return (
-     <div className="w-10/12 md:w-3/5 mx-auto my-3">
+    <div className="w-10/12 md:w-3/5 mx-auto my-3">
       <div
         className="embed-responsive embed-responsive-16by9 relative w-full overflow-hidden rounded-xl"
         style={{ paddingTop: "56.25%" }}
@@ -17,7 +17,6 @@ const VideoSection = ({videoKey}) => {
         />
       </div>
     </div>
-  )
-}
-
-export default VideoSection
+  );
+};
+export default Video;

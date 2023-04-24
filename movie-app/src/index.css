@@ -88,8 +88,8 @@ body {
   background-color: #1b5e20;
 }
 
-.tag.orange {
-  background-color: #f57f17;
+.tag.yellow {
+  background-color: rgba(255, 255, 0, 0.694);
 }
 
 .tag.red {
